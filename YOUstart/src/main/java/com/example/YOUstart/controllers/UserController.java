@@ -3,10 +3,13 @@ package com.example.YOUstart.controllers;
 import com.example.YOUstart.mysql_struct.Role;
 import com.example.YOUstart.mysql_struct.User;
 import com.example.YOUstart.repos.UserRepo;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.persistence.ManyToOne;
 import jdk.jfr.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +20,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
+@PreAuthorize("hasRole('ADMIN')")
 @RequestMapping("/users")
 public class UserController {
+
     @Autowired
     private UserRepo userRepo;
     @GetMapping
@@ -26,6 +31,7 @@ public class UserController {
         model.addAttribute("users",userRepo.findAll());
         return "userList";
     }
+
     @GetMapping("/{user}")
     public String editUser(@PathVariable User user, Model model){
         model.addAttribute("user",user);
