@@ -1,9 +1,6 @@
 package com.example.YOUstart.mysql_struct;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Message {
@@ -12,9 +9,18 @@ public class Message {
     private Integer id;
     private String text;
 
-    public Message(String text, String tag) {
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User author;
+
+    public String getAuthorName() {
+        return author!=null ? author.getUsername() : "<none>";
+    }
+
+    public Message(String text, String tag, User user) {
         this.text = text;
         this.tag = tag;
+        this.author=user;
     }
 
     private String tag;
