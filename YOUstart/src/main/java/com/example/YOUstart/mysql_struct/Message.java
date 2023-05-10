@@ -1,6 +1,7 @@
 package com.example.YOUstart.mysql_struct;
 
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Value;
 
 @Entity
 public class Message {
@@ -9,9 +10,28 @@ public class Message {
     private Integer id;
     private String text;
 
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User author;
+
+    private String filename;
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
 
     public String getAuthorName() {
         return author!=null ? author.getUsername() : "<none>";

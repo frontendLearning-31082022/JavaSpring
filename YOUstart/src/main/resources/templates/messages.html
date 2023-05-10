@@ -6,20 +6,28 @@
 <body>
 <form action="./logout" method="post">
     <input type="submit" value="Sign Out"/>
-<!--    <input type="hidden" name="{/{_csrf}}" value="{/{_csrf.token}}">-->
+    <!--    <input type="hidden" name="{/{_csrf}}" value="{/{_csrf.token}}">-->
 </form>
+<br><br>
 
-<form th:action="@{/messages}" method="post">
+<form th:action="@{/messages}" method="post" enctype="multipart/form-data">
     <div><label> Input message: <input type="text" name="msg"/> </label></div>
     <div><label> Input tag: <input type="text" name="tag"/> </label></div>
+    <input type="file" name="file">
     <!--    <input type="hidden" name="_csrf" value="@{_csrf.token}" />-->
-    <div><input type="submit" value="Add"/></div>     </form>
+    <div><input type="submit" value="Add"/></div>
+</form>
+<br><br>
 
+List messages
 <div th:each="mes : ${messages}">
     <p><span th:text="|${mes.id}|"></span>
         &nbsp; <span th:text="|${mes.text}|"></span>
         &nbsp; <span th:text="|${mes.tag}|"></span>
-    &nbsp; <span th:text="|${mes.authorName}|"></span>
+        &nbsp; <span th:text="|${mes.authorName}|"></span>
+    <div th:if="${mes.filename != null}">
+        <img th:src="@{/img/}+${mes.filename}">
+    </div>
     </p>
 </div>
 
