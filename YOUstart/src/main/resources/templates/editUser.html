@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+Edit user
+<form th:action="@{/users/}+${user.id}" method="post">
+    Name: <input type="text" name="username" th:value="${user.username}">
+    <div th:each="role : ${roles}">
+            <input type="checkbox" th:name="${role}" th:checked="${#lists.contains(user.roles, role)}"
+                   th:utext="${role}">
+    </div>
+    ID:  <input type="text" th:value="${user.id}" th:name="user_id">
+    <!--        <input type="text" value="${_csrf.token}" name="_csrf">-->
+    <br>
+    <button type="submit">Save</button>
+</form>
+
+</body>
+</html>
