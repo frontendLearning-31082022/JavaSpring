@@ -2,10 +2,11 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     password: ThePassword
-    url: jdbc:mysql://192.168.1.11:3306/YOUstart
+    url: jdbc:mysql://192.168.1.11:3306/YOUstart2
     username: springuser
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
+    show-sql: true
 upload:
   path: /s:/Файлы на время/YOUstart/upload
