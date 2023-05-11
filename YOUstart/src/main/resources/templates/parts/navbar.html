@@ -24,10 +24,21 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="/messages">Messages</a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/users">Users</a>
-                    </li>
+
+                    <div th:less="${#strings.equals(#authentication.getPrincipal(), 'anonymousUser')}">
+                        <div th:if="${#authentication.getPrincipal().isAdmin()}">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="/users">Users</a>
+                            </li>
+                        </div>
+                    </div>
+
+
                 </ul>
+                <div th:if="${#strings.equals(#authentication.getPrincipal(), 'anonymousUser')}">Not_logined_user!</div>
+                <div th:unless="${#strings.equals(#authentication.getPrincipal(), 'anonymousUser')}">
+                    <div class="navbar-text" th:text="@{Logined as:&nbsp;}+${#authentication.getPrincipal().getUsername()}"></div></div>
+
             </div>
         </nav>
     </div>

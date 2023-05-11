@@ -17,6 +17,9 @@ public class User implements UserDetails {
     private String username;
     private String password;
 
+    public boolean isAdmin(){
+        return this.roles.contains(Role.ADMIN);
+    }
 
     public Long getId() {
         return id;
