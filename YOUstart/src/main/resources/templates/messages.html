@@ -23,8 +23,20 @@
 </a>
 
 <div class="collapse" id="collapseExample">
+<!--<div class="collapse <#if message??>show</#if>" id="collapseExample">-->
 <form th:action="@{/messages}" method="post" enctype="multipart/form-data">
-    <div><label> Input message: <input type="text" name="msg"/> </label></div>
+    <div><label> Input message: <input type="text" name="msg" /> </label></div>
+<!--    <div><label> Input message: <input type="text" name="msg"-->
+<!--                                       th:class="form-control ${(textError??)?string('is-invalid', '')}"/> </label></div>-->
+
+<!--    value="<#if message??>${message.text}</#if>"-->
+
+<!--    <#if textError??>-->
+    <div class="invalid-feedback"  th:text="${textError}">
+
+    </div>
+<!--    </#if>-->
+
     <div><label> Input tag: <input type="text" name="tag"/> </label></div>
     <input type="file" name="file">
     <!--    <input type="hidden" name="_csrf" value="@{_csrf.token}" />-->

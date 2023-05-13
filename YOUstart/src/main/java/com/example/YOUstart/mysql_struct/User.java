@@ -1,6 +1,7 @@
 package com.example.YOUstart.mysql_struct;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -14,8 +15,22 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+    @NotBlank(message = "not blank usrname")
     private String username;
+    @NotBlank(message = "not blank password")
     private String password;
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
+
+    @Transient
+    @NotBlank(message = "not blank passwordConfirm")
+    private String passwordConfirm;
 
     public boolean isAdmin(){
         return this.roles.contains(Role.ADMIN);

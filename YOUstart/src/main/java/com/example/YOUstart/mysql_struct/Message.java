@@ -1,6 +1,9 @@
 package com.example.YOUstart.mysql_struct;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Value;
 
 @Entity
@@ -8,6 +11,9 @@ public class Message {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
+
+    @NotBlank(message = "fill text")
+    @Length(max = 200,message = "max 200 letters")
     private String text;
 
 
