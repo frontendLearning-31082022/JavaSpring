@@ -3,6 +3,7 @@ package com.example.YOUstart.mysql_struct;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
+
 import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -15,6 +16,9 @@ public class Message {
     @NotBlank(message = "fill text")
     @Length(max = 200,message = "max 200 letters")
     private String text;
+    @NotBlank(message = "fill tag")
+    @Length(max = 10,message = "max 10 letters")
+    private String tag;
 
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -49,7 +53,7 @@ public class Message {
         this.author=user;
     }
 
-    private String tag;
+
 
     public Message() {}
 

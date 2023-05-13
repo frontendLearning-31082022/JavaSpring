@@ -4,6 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/static/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
@@ -22,22 +23,20 @@
     Add new message
 </a>
 
-<div class="collapse" id="collapseExample">
-<!--<div class="collapse <#if message??>show</#if>" id="collapseExample">-->
+<div th:class="${message}? 'collapse show' : 'collapse'" id="collapseExample">
+
 <form th:action="@{/messages}" method="post" enctype="multipart/form-data">
-    <div><label> Input message: <input type="text" name="msg" /> </label></div>
-<!--    <div><label> Input message: <input type="text" name="msg"-->
-<!--                                       th:class="form-control ${(textError??)?string('is-invalid', '')}"/> </label></div>-->
 
-<!--    value="<#if message??>${message.text}</#if>"-->
+        <div><label> Input message: <input type="text" name="text"
+                                           th:value="${message}? ${message.text} : ''"
+                                           th:class="${textError}? 'form-control is-invalid' : 'form-control'"/> </label></div>
+    <div th:if="${textError}"><span class="errorStyle" th:text="${textError}">  </span></div>
 
-<!--    <#if textError??>-->
-    <div class="invalid-feedback"  th:text="${textError}">
+    <div><label> Input tag: <input type="text" name="tag"
+                                       th:value="${message}? ${message.tag} : ''"
+                                       th:class="${tagError}? 'form-control is-invalid' : 'form-control'"/> </label></div>
+    <div th:if="${tagError}"><span class="errorStyle" th:text="${tagError}">  </span></div>
 
-    </div>
-<!--    </#if>-->
-
-    <div><label> Input tag: <input type="text" name="tag"/> </label></div>
     <input type="file" name="file">
     <!--    <input type="hidden" name="_csrf" value="@{_csrf.token}" />-->
     <div><input type="submit" value="Add"/></div>
