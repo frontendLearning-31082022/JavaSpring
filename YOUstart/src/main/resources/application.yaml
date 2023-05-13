@@ -8,5 +8,6 @@ spring:
     hibernate:
       ddl-auto: create
     show-sql: true
+    generate-ddl: true
 upload:
   path: /s:/Файлы на время/YOUstart/upload
