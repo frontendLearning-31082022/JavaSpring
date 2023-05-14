@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -32,17 +33,20 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "author",cascade = CascadeType.ALL,fetch=FetchType.LAZY)
     private Set<Message> messages;
 
-    public String getPasswordConfirm() {
-        return passwordConfirm;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
     }
 
-    public void setPasswordConfirm(String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
-    @Transient
-    @NotBlank(message = "not blank passwordConfirm")
-    private String passwordConfirm;
 
     public boolean isAdmin(){
         return this.roles.contains(Role.ADMIN);

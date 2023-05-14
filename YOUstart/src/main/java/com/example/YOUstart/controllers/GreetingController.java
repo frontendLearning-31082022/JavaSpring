@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 @Controller
@@ -85,6 +87,17 @@ public class GreetingController {
         model.put("some","");
 
         return "main";
+    }
+
+
+    @GetMapping("/user-messages/messages/{userReq}")
+    public String userMessages(@AuthenticationPrincipal User currentUser,@PathVariable User userReq,Model model){
+        Set<Message> messByUser=userReq.getMessages();
+        model.addAttribute("messages",messByUser);
+
+        model.addAttribute("isCurrentUser",currentUser.equals(userReq));
+
+        return "userMessages";
     }
 
 }
