@@ -7,5 +7,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  session:
+    jdbc:
+      initialize-schema: always
+      table-name: SPRING_SESSION
 upload:
   path: /s:/Файлы на время/YOUstart/upload

@@ -29,7 +29,7 @@ public class WebSecurityConfig{
                         .loginPage("/login")
                         .permitAll()
                 )
-                .logout((logout) -> logout.permitAll());
+                .logout((logout) -> logout.permitAll()).rememberMe();
 
         return http.build();
     }
