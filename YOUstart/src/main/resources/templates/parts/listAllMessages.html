@@ -8,17 +8,20 @@
 <body>
 <div th:fragment="listAllMessages" class="navbar">
 
-
 List messages
 <div th:each="mes : ${messages}">
-    <p><span th:text="|${mes.id}|"></span>
+    <p><span th:text="|${mes.id}|"></span></p>
         &nbsp; <span th:text="|${mes.text}|"></span>
-        &nbsp; <span th:text="|${mes.tag}|"></span>
-        &nbsp; <span th:text="|${mes.authorName}|"></span>
-    <div th:if="${mes.filename}">
+        &nbsp; <span th:text="@{#}+${mes.tag}|"></span>
+        &nbsp; <a th:text="|${mes.authorName}|" th:href="@{/user-messages/messages/}+${mes.author.id}"></a>
+
+    <div th:if="${mes.author.id == idCurUser}">
+        <a th:text="edit" th:href="@{/user-messages/messages/}+${mes.author.id}+@{?message=}+${mes.id}" class="btn btn-primary"></a></div>
+<div th:if="${mes.filename}">
         <img th:src="@{/img/}+${mes.filename}">
+    <br>
     </div>
-    </p>
+
 </div>
 
 

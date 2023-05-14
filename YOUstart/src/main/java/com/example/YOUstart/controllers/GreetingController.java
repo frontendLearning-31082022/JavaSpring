@@ -38,9 +38,10 @@ public class GreetingController {
     }
 
     @GetMapping("/messages")
-    public String main(Map<String,Object>model){
+    public String main(@AuthenticationPrincipal User user,Map<String,Object>model){
         Iterable<Message> messages=messageRepo.findAll();
 
+        model.put("idCurUser",user.getId());
         model.put("messages",messages);
         model.put("some","test");
         return "messages";}

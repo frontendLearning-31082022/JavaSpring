@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <div th:insert="~{parts/bootstrap :: bootstrap_head}"></div>
 </head>
 <body>
-
+<div class="container">
 <br><br>
 
 <!--<div th:if="${mes.filename}"> // isCurrentUser-->
@@ -16,5 +17,8 @@
 <br><br>
 <div th:insert="~{parts/listAllMessages :: listAllMessages}"></div>
 
+
+</div>
+<div th:insert="~{parts/bootstrap :: bootstrap_body}"></div>
 </body>
 </html>
