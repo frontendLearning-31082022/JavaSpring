@@ -25,6 +25,13 @@
                         <a class="nav-link" href="/messages">Messages</a>
                     </li>
 
+                    <div th:unless="${#strings.equals(#authentication.getPrincipal(), 'anonymousUser')}">
+                        <li class="nav-item active">
+                            <a class="nav-link"
+                               href="@{/user-messages/messages/}+${#authentication.getPrincipal().getId()}">My Messages</a>
+                        </li>
+                    </div>
+
                     <div th:less="${#strings.equals(#authentication.getPrincipal(), 'anonymousUser')}">
                         <div th:if="${#authentication.getPrincipal().isAdmin()}">
                             <li class="nav-item active">

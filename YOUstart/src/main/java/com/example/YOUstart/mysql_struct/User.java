@@ -17,8 +17,20 @@ public class User implements UserDetails {
     private Long id;
     @NotBlank(message = "not blank usrname")
     private String username;
+
+    public Set<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(Set<Message> messages) {
+        this.messages = messages;
+    }
+
     @NotBlank(message = "not blank password")
     private String password;
+
+    @OneToMany(mappedBy = "author",cascade = CascadeType.ALL,fetch=FetchType.LAZY)
+    private Set<Message> messages;
 
     public String getPasswordConfirm() {
         return passwordConfirm;
