@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="addNewMessage" class="navbar">
+
+
+    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        Add new message
+    </a>
+
+    <div th:class="${message}? 'collapse show' : 'collapse'" id="collapseExample">
+
+        <form th:action="@{/messages}" method="post" enctype="multipart/form-data">
+
+            <div><label> Input message: <input type="text" name="text"
+                                               th:value="${message}? ${message.text} : ''"
+                                               th:class="${textError}? 'form-control is-invalid' : 'form-control'"/> </label></div>
+            <div th:if="${textError}"><span class="errorStyle" th:text="${textError}">  </span></div>
+
+            <div><label> Input tag: <input type="text" name="tag"
+                                           th:value="${message}? ${message.tag} : ''"
+                                           th:class="${tagError}? 'form-control is-invalid' : 'form-control'"/> </label></div>
+            <div th:if="${tagError}"><span class="errorStyle" th:text="${tagError}">  </span></div>
+
+            <input type="file" name="file">
+            <!--    <input type="hidden" name="_csrf" value="@{_csrf.token}" />-->
+            <div><input type="submit" value="Add"/></div>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

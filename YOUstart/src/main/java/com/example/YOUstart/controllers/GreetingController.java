@@ -55,7 +55,7 @@ public class GreetingController {
             model.addAttribute("message",message);
 
         }else {
-        if (file!=null){
+        if (file!=null && !file.isEmpty()){
             File uploadPathFile=new File(uploadPath);
             if (!uploadPathFile.exists())uploadPathFile.mkdirs();
 

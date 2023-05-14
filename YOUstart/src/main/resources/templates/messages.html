@@ -19,43 +19,10 @@
 </form>
 <br><br>
 
-<a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-    Add new message
-</a>
-
-<div th:class="${message}? 'collapse show' : 'collapse'" id="collapseExample">
-
-<form th:action="@{/messages}" method="post" enctype="multipart/form-data">
-
-        <div><label> Input message: <input type="text" name="text"
-                                           th:value="${message}? ${message.text} : ''"
-                                           th:class="${textError}? 'form-control is-invalid' : 'form-control'"/> </label></div>
-    <div th:if="${textError}"><span class="errorStyle" th:text="${textError}">  </span></div>
-
-    <div><label> Input tag: <input type="text" name="tag"
-                                       th:value="${message}? ${message.tag} : ''"
-                                       th:class="${tagError}? 'form-control is-invalid' : 'form-control'"/> </label></div>
-    <div th:if="${tagError}"><span class="errorStyle" th:text="${tagError}">  </span></div>
-
-    <input type="file" name="file">
-    <!--    <input type="hidden" name="_csrf" value="@{_csrf.token}" />-->
-    <div><input type="submit" value="Add"/></div>
-</form>
-</div>
-
+<div th:insert="~{parts/addNewMessage :: addNewMessage}"></div>
 <br><br>
+<div th:insert="~{parts/listAllMessages :: listAllMessages}"></div>
 
-List messages
-<div th:each="mes : ${messages}">
-    <p><span th:text="|${mes.id}|"></span>
-        &nbsp; <span th:text="|${mes.text}|"></span>
-        &nbsp; <span th:text="|${mes.tag}|"></span>
-        &nbsp; <span th:text="|${mes.authorName}|"></span>
-    <div th:if="${mes.filename != null}">
-        <img th:src="@{/img/}+${mes.filename}">
-    </div>
-    </p>
-</div>
 
 </body>
 </html>
