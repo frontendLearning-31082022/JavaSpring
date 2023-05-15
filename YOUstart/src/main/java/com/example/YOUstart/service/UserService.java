@@ -34,4 +34,14 @@ public class UserService implements UserDetailsService {
                 .and()
                 .build();
     }
+
+    public void subscribe(User currentUser, User userForSubscribe) {
+            userForSubscribe.getSubscribers().add(currentUser);
+            userRepo.save(userForSubscribe);
+    }
+
+    public void unSubscribe(User currentUser, User userForUnSubscribe) {
+        userForUnSubscribe.getSubscribers().remove(currentUser);
+        userRepo.save(userForUnSubscribe);
+    }
 }

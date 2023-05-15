@@ -102,6 +102,11 @@ public class GreetingController {
         model.addAttribute("messages",messByUser);
         model.addAttribute("message",message);
 
+        model.addAttribute("userChannel",userReq);
+        model.addAttribute("isSubscriber",userReq.getSubscribers().contains(currentUser));
+        model.addAttribute("subscriptionsCount",userReq.getSubscriptions().size());
+        model.addAttribute("subscribersCount",userReq.getSubscribers().size());
+
         model.addAttribute("isCurrentUser",currentUser.equals(userReq));
 
         return "userMessages";

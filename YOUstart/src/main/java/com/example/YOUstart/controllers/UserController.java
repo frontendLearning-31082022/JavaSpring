@@ -1,8 +1,10 @@
 package com.example.YOUstart.controllers;
 
+import com.example.YOUstart.mysql_struct.Message;
 import com.example.YOUstart.mysql_struct.Role;
 import com.example.YOUstart.mysql_struct.User;
 import com.example.YOUstart.repos.UserRepo;
+import com.example.YOUstart.service.UserService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.persistence.ManyToOne;
 import jdk.jfr.Category;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +29,9 @@ public class UserController {
 
     @Autowired
     private UserRepo userRepo;
+    @Autowired
+    private UserService userService;
+
     @GetMapping
     public String userList(Model model){
         model.addAttribute("users",userRepo.findAll());
@@ -56,5 +62,18 @@ public class UserController {
         return "redirect:/users";
     }
 
+
+    @GetMapping(value = "/subscribe/{userReq}")
+    public String subscribeToUser(@AuthenticationPrincipal User currentUser,
+                                   @PathVariable User userReq){
+        userService.subscribe(currentUser,userReq);
+        return "redirect:/user-messages/messages/"+userReq.getId();
+    }
+    @GetMapping(value = "/unsubscribe/{userReq}")
+    public String unSubscribeToUser(@AuthenticationPrincipal User currentUser,
+                                   @PathVariable User userReq){
+        userService.unSubscribe(currentUser,userReq);
+        return "redirect:/user-messages/messages/"+userReq.getId();
+    }
 
 }

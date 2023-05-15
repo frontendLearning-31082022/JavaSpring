@@ -6,15 +6,51 @@
     <div th:insert="~{parts/bootstrap :: bootstrap_head}"></div>
 </head>
 <body>
+<div th:insert="~{parts/navbar :: navbar}"></div>
+
 <div class="container">
-<br><br>
 
-    <div th:insert="~{parts/addNewMessage :: addNewMessage}"></div>
-<br><br>
-<div th:insert="~{parts/listAllMessages :: listAllMessages}"></div>
+    <h3 th:text="@{Channel by user:&nbsp;}+${userChannel.username}"></h3>
 
 
-</div>
-<div th:insert="~{parts/bootstrap :: bootstrap_body}"></div>
+    <div th:unless="${#authentication.getPrincipal()} eq ${userChannel}">
+        <a th:unless="${isSubscriber}" th:href="@{/users/subscribe/}+${userChannel.id}" class="btn btn-info">Subscribe</a>
+        <a th:if="${isSubscriber}" th:href="@{/users/unsubscribe/}+${userChannel.id}" class="btn btn-info">UnSubscribe</a>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">Subscriptions</div>
+                    <h3 class="card-text">
+                        <a th:text="${subscriptionsCount}" th:href= "@{/user/subscriptions/}+${userChannel.id}"></a>
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">Subscribers</div>
+                    <h3 class="card-text">
+                        <a th:text="${subscribersCount}" th:href= "@{/user/subscribers/}+${userChannel.id}"></a>
+                    </h3>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <br><br>
+
+        <div th:insert="~{parts/addNewMessage :: addNewMessage}"></div>
+        <br><br>
+        <div th:insert="~{parts/listAllMessages :: listAllMessages}"></div>
+
+
+    </div>
+    <div th:insert="~{parts/bootstrap :: bootstrap_body}"></div>
 </body>
 </html>
