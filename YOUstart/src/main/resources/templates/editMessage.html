@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <div th:insert="~{parts/bootstrap :: bootstrap_head}"></div>
+</head>
+<body>
+<div th:insert="~{parts/bootstrap :: bootstrap_body}"></div>
+<div class="container">
+
+
+<div th:insert="~{parts/navbar :: navbar}"></div>
+
+<div th:text="${result_saving}? ${result_saving}"></div>
+
+<form th:action="@{/user-messages/messages/}+${message.author.id}+@{/editMessage}+${message.id}" method="post" enctype="multipart/form-data">
+
+    <div><label> Input message: <input type="text" name="text"
+                                       th:value="${message}? ${message.text} : ''"
+                                       th:class="${textError}? 'form-control is-invalid' : 'form-control'"/> </label></div>
+    <div th:if="${textError}"><span class="errorStyle" th:text="${textError}">  </span></div>
+
+    <div><label> Input tag: <input type="text" name="tag"
+                                   th:value="${message}? ${message.tag} : ''"
+                                   th:class="${tagError}? 'form-control is-invalid' : 'form-control'"/> </label></div>
+    <div th:if="${tagError}"><span class="errorStyle" th:text="${tagError}">  </span></div>
+
+    <input type="file" name="file">
+    <!--    <input type="hidden" name="_csrf" value="@{_csrf.token}" />-->
+    <input type="hidden" name="id"  th:value="${message}? ${message.id}" />
+    <div><input type="submit" name="addSubmit" value="Save"/></div>
+
+</form>
+
+</div>
+</body>
+</html>

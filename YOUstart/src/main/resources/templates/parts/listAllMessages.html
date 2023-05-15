@@ -16,7 +16,7 @@ List messages
         &nbsp; <a th:text="|${mes.authorName}|" th:href="@{/user-messages/messages/}+${mes.author.id}"></a>
 
     <div th:if="${mes.author.id == idCurUser}">
-        <a th:text="edit" th:href="@{/user-messages/messages/}+${mes.author.id}+@{?message=}+${mes.id}" class="btn btn-primary"></a></div>
+        <a th:text="edit" th:href="@{/user-messages/messages/}+${mes.author.id}+@{/editMessage}+${mes.id}" class="btn btn-primary"></a></div>
 <div th:if="${mes.filename}">
         <img th:src="@{/img/}+${mes.filename}">
     <br>
