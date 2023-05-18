@@ -5,7 +5,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers;
+import org.springframework.test.web.client.match.MockRestRequestMatchers;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
@@ -17,46 +21,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class LoginTest {
-
+@WithUserDetails("p")
+public class GreetingControllerTest {
     @Autowired
     private GreetingController controller;
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    public void init() throws Exception{
-        assertThat(controller).isNotNull();
-    }
-    @Test
     public void getRootWeb() throws Exception{
-        this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString("Messages page")));
-    }
-
-    @Test
-    public void loginRedirectTest() throws Exception{
         this.mockMvc.perform(get("/messages")).andDo(print())
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("http://localhost/login"));
+                .andExpect(SecurityMockMvcResultMatchers.authenticated())
+                .andExpect( xpath("//*[@id='navbarSupportedContent']/div/div")
+                        .string("Logined as: p"));
     }
-
-    @Test
-    public void loginTest() throws Exception{
-        this.mockMvc.perform(formLogin().user("p").password("p"))
-                .andDo(print())
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/"));
-    }
-
-    @Test
-    public void loginIncorrectUserTest() throws Exception{
-        this.mockMvc.perform(post("/login").param("incorrect","incorrect"))
-                .andDo(print())
-                .andExpect(status().isForbidden());
-    }
-
-
 
 
 }

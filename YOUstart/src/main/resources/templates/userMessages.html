@@ -10,7 +10,7 @@
 
 <div class="container">
 
-    <h3 th:text="@{Channel by user:&nbsp;}+${userChannel.username}"></h3>
+    <h3 th:text="@{Channel by user:&#160;}+${userChannel.username}"></h3>
 
     <div th:unless="${#authentication.getPrincipal()} eq ${userChannel}">
         <a th:unless="${isSubscriber}" th:href="@{/users/subscribe/}+${userChannel.id}" class="btn btn-info">Subscribe</a>
@@ -39,10 +39,10 @@
             </div>
         </div>
 
-        <br><br>
+        <br/><br/>
 
         <div th:insert="~{parts/addNewMessage :: addNewMessage}"></div>
-        <br><br>
+        <br/><br/>
         <div th:insert="~{parts/listAllMessages :: listAllMessages}"></div>
 
     </div>

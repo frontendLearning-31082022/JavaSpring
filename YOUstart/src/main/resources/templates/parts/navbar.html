@@ -49,7 +49,7 @@
                 <div th:if="${#strings.equals(#authentication.getPrincipal(), 'anonymousUser')}">Not_logined_user!</div>
                 <div th:unless="${#strings.equals(#authentication.getPrincipal(), 'anonymousUser')}">
                     <div class="navbar-text"
-                         th:text="@{Logined as:&nbsp;}+${#authentication.getPrincipal().getUsername()}"></div>
+                         th:text="@{Logined as:&#160;}+${#authentication.getPrincipal().getUsername()}"></div>
                 </div>
 
             </div>

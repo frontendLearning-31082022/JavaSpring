@@ -28,7 +28,7 @@
                                            th:class="${tagError}? 'form-control is-invalid' : 'form-control'"/> </label></div>
             <div th:if="${tagError}"><span class="errorStyle" th:text="${tagError}">  </span></div>
 
-            <input type="file" name="file">
+            <input type="file" name="file"/>
             <!--    <input type="hidden" name="_csrf" value="@{_csrf.token}" />-->
                 <input type="hidden" name="id"  th:value="${message}? ${message.id}" />
             <div><input type="submit" name="addSubmit" value="Add"/></div>
