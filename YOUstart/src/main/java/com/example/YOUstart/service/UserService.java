@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -21,7 +22,6 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User userFromDB=userRepo.findByUsername(username);
-
         return userFromDB;
     }
 
@@ -35,13 +35,18 @@ public class UserService implements UserDetailsService {
                 .build();
     }
 
+    @Transactional
     public void subscribe(User currentUser, User userForSubscribe) {
             userForSubscribe.getSubscribers().add(currentUser);
+            currentUser.getSubscriptions().add(userForSubscribe);
             userRepo.save(userForSubscribe);
+            userRepo.save(currentUser);
     }
 
     public void unSubscribe(User currentUser, User userForUnSubscribe) {
         userForUnSubscribe.getSubscribers().remove(currentUser);
+        currentUser.getSubscriptions().remove(userForUnSubscribe);
         userRepo.save(userForUnSubscribe);
+        userRepo.save(currentUser);
     }
 }

@@ -37,18 +37,11 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "author",cascade = CascadeType.ALL,fetch=FetchType.LAZY)
     private Set<Message> messages;
 
-    @ManyToMany
-    @JoinTable(name = "user_subscriptions",
-            joinColumns = {@JoinColumn(name = "channel_id")},
-            inverseJoinColumns = {@JoinColumn(name = "subscriber_id") })
-    private Set<User>subscribers=new HashSet<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<User> subscribers = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(name = "user_subscriptions",
-            joinColumns = {@JoinColumn(name = "subscriber_id")},
-            inverseJoinColumns = {@JoinColumn(name = "channel_id") })
-    private Set<User>subscriptions=new HashSet<>();
-
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<User> subscriptions = new HashSet<>();
 
     public Set<User> getSubscribers() {
         return subscribers;

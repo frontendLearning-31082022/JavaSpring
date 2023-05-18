@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
@@ -65,15 +66,27 @@ public class UserController {
 
     @GetMapping(value = "/subscribe/{userReq}")
     public String subscribeToUser(@AuthenticationPrincipal User currentUser,
-                                   @PathVariable User userReq){
-        userService.subscribe(currentUser,userReq);
+                                  @PathVariable User userReq, Principal user){
+        userService.subscribe( userRepo.findById(currentUser.getId()).get(),userReq);
         return "redirect:/user-messages/messages/"+userReq.getId();
     }
     @GetMapping(value = "/unsubscribe/{userReq}")
     public String unSubscribeToUser(@AuthenticationPrincipal User currentUser,
-                                   @PathVariable User userReq){
-        userService.unSubscribe(currentUser,userReq);
+                                   @PathVariable User userReq,Principal user){
+        userService.unSubscribe(userRepo.findById(currentUser.getId()).get(),userReq);
         return "redirect:/user-messages/messages/"+userReq.getId();
+    }
+
+    @GetMapping(value = "/{type}/{userReq}/list")
+    public String userList(
+                                    @PathVariable User userReq, @PathVariable String type,Model model){
+        model.addAttribute("userChannel",userReq);
+        model.addAttribute("type",type);
+
+        if (type.equals("subscriptions"))model.addAttribute("users",userReq.getSubscriptions());
+        if (type.equals("subscribers"))model.addAttribute("users",userReq.getSubscribers());
+
+        return "subscriptions";
     }
 
 }
