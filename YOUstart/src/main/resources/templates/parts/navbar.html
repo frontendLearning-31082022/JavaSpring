@@ -31,13 +31,14 @@
                         </li>
                         <li class="nav-item active">
                             <a class="nav-link"
-                               th:href="@{/user-messages/messages/}+${#authentication.getPrincipal().getId()}">My Messages</a>
+                               th:href="@{/user-messages/messages/}+${#authentication.getPrincipal().getId()}">My
+                                Messages</a>
                         </li>
                     </div>
 
-                    <div th:less="${#strings.equals(#authentication.getPrincipal(), 'anonymousUser')}">
+                    <div th:unless="${#strings.equals(#authentication.getPrincipal(), 'anonymousUser')}">
                         <div th:if="${#authentication.getPrincipal().isAdmin()}">
-                            <li class="nav-item active">
+                            <li class="nav-item active">-->
                                 <a class="nav-link" href="/users">Users</a>
                             </li>
                         </div>
@@ -47,7 +48,9 @@
                 </ul>
                 <div th:if="${#strings.equals(#authentication.getPrincipal(), 'anonymousUser')}">Not_logined_user!</div>
                 <div th:unless="${#strings.equals(#authentication.getPrincipal(), 'anonymousUser')}">
-                    <div class="navbar-text" th:text="@{Logined as:&nbsp;}+${#authentication.getPrincipal().getUsername()}"></div></div>
+                    <div class="navbar-text"
+                         th:text="@{Logined as:&nbsp;}+${#authentication.getPrincipal().getUsername()}"></div>
+                </div>
 
             </div>
         </nav>
