@@ -8,22 +8,23 @@
 <body>
 <div th:fragment="listAllMessages" class="navbar">
 
-List messages
-<div th:each="mes : ${messages}">
-    <p><span th:text="|${mes.id}|"></span></p>
-        &#160; <span th:text="|${mes.text}|"></span>
-         <span th:text="@{&#160;#}+${mes.tag}|"></span>
-         <a th:text="|${mes.authorName}|" th:href="@{/user-messages/messages/}+${mes.author.id}"></a>
+    List messages
+    <div class="messages-list">
+        <div th:each="mes : ${messages}" id="one_message">
+            <p><span th:text="|${mes.id}|"></span></p>
+            &#160; <span th:text="|${mes.text}|"></span>
+            <span th:text="@{&#160;#}+${mes.tag}|"></span>
+            <a th:text="|${mes.authorName}|" th:href="@{/user-messages/messages/}+${mes.author.id}"></a>
 
-    <div th:if="${mes.author.id == idCurUser}">
-        <a th:text="edit" th:href="@{/user-messages/messages/}+${mes.author.id}+@{/editMessage}+${mes.id}" class="btn btn-primary"></a></div>
-<div th:if="${mes.filename}">
-        <img th:src="@{/img/}+${mes.filename}">
-    <br/>
+            <div th:if="${mes.author.id == idCurUser}">
+                <a th:text="edit" th:href="@{/user-messages/messages/}+${mes.author.id}+@{/editMessage}+${mes.id}"
+                   class="btn btn-primary"></a></div>
+            <div th:if="${mes.filename}">
+                <img th:src="@{/img/}+${mes.filename}"/>
+                <br/>
+            </div>
+        </div>
     </div>
-
-</div>
-
 
 </div>
 </body>
