@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--<div th:insert="~{parts/pagination :: pagination}"></div>-->
+
+<div th:fragment="pagination" class="pagination">
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+
+            <li class="page-item"><a class="page-link" href="#">Страницы</a></li>
+            <li class="page-item"><a class="page-link" th:href="${url}+@{?page=0}+@{&size=}+${messages.getSize}">1</a>
+            </li>
+            <li class="page-item"><a class="page-link"
+                                     th:href="${url}+@{?page=}+${messages.getNumber-1}+@{&size=}+${messages.getSize}"><-</a>
+            </li>
+            <li class="page-item"><a class="page-link" th:text="${messages.getNumber+1}"
+                                     th:href="${url}+@{?page=}+${messages.getNumber}+@{&size=}+${messages.getSize}"></a>
+            </li>
+            <li class="page-item"><a class="page-link"
+                                     th:href="${url}+@{?page=}+${messages.getNumber+1}+@{&size=}+${messages.getSize}">-></a>
+            </li>
+            <li class="page-item"><a class="page-link" th:text="${messages.getTotalPages}"
+                                     th:href="${url}+@{?page=}+${messages.getTotalPages}+@{&size=}+${messages.getSize}"></a>
+            </li>
+        </ul>
+    </nav>
+    <br/>
+
+    <div th:with="url=${url}">
+        <div th:with="countsOnPage = ${ {'10','40','100'} }">
+
+            <select th:onchange="'window.location.href = \'' + @{{url}(url=${url})}+@{?page={page}(page=${messages.getNumber})} +@{&size=}+ '\'+this.value'">
+                <option th:each="countOnPage : ${countsOnPage}" th:text="@{Отображать по&#160;}+${countOnPage}"
+                        th:value="${countOnPage}"
+                        th:selected="(${messages.getSize} == ${countOnPage})"></option>
+            </select>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
