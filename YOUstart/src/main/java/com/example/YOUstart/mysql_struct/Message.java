@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Value;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Message {
@@ -20,6 +22,19 @@ public class Message {
     @Length(max = 10,message = "max 10 letters")
     private String tag;
 
+    @ManyToMany
+    @JoinTable(name="message_like",
+            joinColumns = { @JoinColumn(name="message_id")},
+            inverseJoinColumns = { @JoinColumn(name="user_id")})
+    private Set<User> likes=new HashSet<>();
+
+    public Set<User> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Set<User> likes) {
+        this.likes = likes;
+    }
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
