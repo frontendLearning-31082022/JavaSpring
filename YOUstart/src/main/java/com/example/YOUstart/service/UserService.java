@@ -43,6 +43,7 @@ public class UserService implements UserDetailsService {
             userRepo.save(currentUser);
     }
 
+    @Transactional
     public void unSubscribe(User currentUser, User userForUnSubscribe) {
         userForUnSubscribe.getSubscribers().remove(currentUser);
         currentUser.getSubscriptions().remove(userForUnSubscribe);
