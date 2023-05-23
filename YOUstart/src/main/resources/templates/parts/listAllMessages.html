@@ -23,9 +23,11 @@
                 <img th:src="@{/img/}+${mes.filename}"/>
                 <br/>
             </div>
-<!--            <img th:if="${mes.meLiked}" th:src="@{images/like.PNG}" width="20" height="20"/>-->
-<!--            <img th:unless="${mes.meLiked}" th:src="@{images/notLiked.PNG}" width="20" height="20"/>-->
-<!--            <p th:text="${mes.likes}"></p>-->
+            <div class="likes"><a th:href="@{/messages/}+${mes.id}+@{/like}">
+                <img th:if="${mes.meLiked}" th:src="@{images/like.PNG}" width="20" height="20"/>
+                <img th:unless="${mes.meLiked}" th:src="@{images/notLiked.PNG}" width="20" height="20"/></a>
+                <p th:class="likes_count" th:text="${mes.likes}"></p>
+            </div>
         </div>
     </div>
 
