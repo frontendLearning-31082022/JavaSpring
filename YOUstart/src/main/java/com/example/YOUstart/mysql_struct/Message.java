@@ -23,7 +23,7 @@ public class Message {
     private String tag;
 
     @ManyToMany
-    @JoinTable(name="message_like",
+    @JoinTable(name="message_likes",
             joinColumns = { @JoinColumn(name="message_id")},
             inverseJoinColumns = { @JoinColumn(name="user_id")})
     private Set<User> likes=new HashSet<>();
