@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: ThePassword
+    url: jdbc:mysql://192.168.1.11:3306/tacoRebuild
+    username: springuser
+  jpa:
+    hibernate:
+      ddl-auto: update
