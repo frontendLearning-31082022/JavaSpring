@@ -3,11 +3,13 @@ package com.example.tacorebuild.controllers;
 import com.example.tacorebuild.structs.Ingredient;
 import com.example.tacorebuild.structs.Taco;
 import com.example.tacorebuild.structs.TacoOrder;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -15,6 +17,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.example.tacorebuild.structs.Ingredient.Type;
+
+
 
 @Slf4j
 @Controller
@@ -66,8 +70,10 @@ public class DesignTacoController {
                 .collect(Collectors.toList());		  }
 
     @PostMapping
-    public String processTaco(Taco taco,
+    public String processTaco(@Valid Taco taco, Errors errors,
                               @ModelAttribute TacoOrder tacoOrder) {
+        if(errors.hasErrors()) {return "design";}
+
         tacoOrder.addTaco(taco);
         log.info("Processing taco: {}", taco);
         return "redirect:/orders/current";
