@@ -20,7 +20,7 @@ public class Taco {
     private String  name;
     @ManyToOne
     private TacoOrder tacoOrder;
-    @OneToMany
+    @ManyToMany
     private List<Ingredient> ingredients;
 
 }

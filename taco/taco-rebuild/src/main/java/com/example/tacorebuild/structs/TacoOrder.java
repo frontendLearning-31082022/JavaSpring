@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import lombok.Builder;
 import lombok.Data;
+import lombok.ToString;
 import org.hibernate.validator.constraints.CreditCardNumber;
 
 
@@ -29,12 +31,18 @@ public class TacoOrder {
     private String ccExpiration;
 //    @Digits(integer=3, fraction=0, message="invalid CCV")
     private String ccCVV;
-    private Date createdAt;
-    @OneToMany
+    private Date createdAt=new Date();
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Taco> tacos=new ArrayList<>();
 
     public void addTaco(Taco taco) {
+        taco.setTacoOrder(this);
         this.tacos.add(taco);
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(this.id);
     }
 
 }

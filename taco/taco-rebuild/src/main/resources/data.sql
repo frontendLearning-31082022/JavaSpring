@@ -1,8 +1,8 @@
 --delete from ingredient_Ref;
-delete from taco;
-delete from taco_order;
+--delete from taco;
+--delete from taco_order;
 
-delete from ingredient;
+--delete from ingredient;
 insert into ingredient (id, name, type) 
                 values ('FLTO', 'Flour Tortilla', '1');
 insert into ingredient (id, name, type) 
