@@ -1,25 +1,20 @@
 package com.example.tacorebuild.controllers;
 
 import com.example.tacorebuild.repos.IngredientRepository;
-import com.example.tacorebuild.repos.OrderRepository;
 import com.example.tacorebuild.structs.Ingredient;
+import com.example.tacorebuild.structs.Ingredient.Type;
 import com.example.tacorebuild.structs.Taco;
 import com.example.tacorebuild.structs.TacoOrder;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import com.example.tacorebuild.structs.Ingredient.Type;
 
 
 

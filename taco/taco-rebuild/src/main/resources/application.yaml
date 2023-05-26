@@ -4,6 +4,10 @@ spring:
     password: ThePassword
     url: jdbc:mysql://192.168.1.11:3306/tacoRebuild
     username: springuser
+    initialization-mode: always
+  sql:
+    init:
+      mode: always
   jpa:
     hibernate:
       ddl-auto: update
