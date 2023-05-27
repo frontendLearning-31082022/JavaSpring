@@ -11,6 +11,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  data:
+    rest:
+      base-path: /data-api
 taco:
   orders:
     maxCountLastOrders: 10
