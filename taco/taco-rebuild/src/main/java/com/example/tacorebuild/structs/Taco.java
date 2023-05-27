@@ -1,5 +1,6 @@
 package com.example.tacorebuild.structs;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -18,6 +19,7 @@ public class Taco {
     @NotNull
     @Size(min=5,message="Name at least 5 ch")
     private String  name;
+    @JsonIgnore
     @ManyToOne
     private TacoOrder tacoOrder;
     @ManyToMany
