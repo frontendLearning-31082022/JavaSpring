@@ -11,3 +11,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+taco:
+  orders:
+    maxCountLastOrders: 10
+bean-var:
+  valueOne: 100
