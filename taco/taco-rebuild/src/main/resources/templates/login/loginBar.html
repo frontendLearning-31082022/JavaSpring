@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--<div th:insert="~{patterns/login :: register_now}"></div>-->
+<div th:fragment="register_now" class="register_now">
+    <a th:if="${#strings.equals(#authentication.getPrincipal(), 'anonymousUser')}" href="/login">Login now!</a>
+    <div th:unless="${#strings.equals(#authentication.getPrincipal(), 'anonymousUser')}">
+        <div class="navbar-text"
+             th:text="@{Logined as:&#160;}+${#authentication.getPrincipal().getUsername()}"></div>
+    </div>
+
+    <form th:action="@{./logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+            <input type="hidden" name="{/{_csrf}}" value="{/{_csrf.token}}">
+    </form>
+</div>
+
+</body>
+</html>
