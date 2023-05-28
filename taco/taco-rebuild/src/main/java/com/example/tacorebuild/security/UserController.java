@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -35,7 +38,9 @@ public class UserController {
 
         userFromDB.setPassword(passwordEncoderBCrypt.encode(password));
         userFromDB.setActive(true);
-        userFromDB.setRoles(Collections.singleton(Role.USER));
+        userFromDB.setRoles(Collections.singleton(Role.ROLE_USER));
+
+        if (userRepo.findAll().size()==0)userFromDB.setRoles(new HashSet<>(Arrays.asList(Role.ROLE_USER,Role.ROLE_ADMIN)));
 
         userRepo.save(userFromDB);
         return "redirect:/login";	 }
