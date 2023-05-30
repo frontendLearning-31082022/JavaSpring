@@ -10,9 +10,10 @@ import lombok.ToString;
 import org.hibernate.validator.constraints.CreditCardNumber;
 
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+
+import static java.util.Map.entry;
+
 @Data
 @Entity
 public class TacoOrder {
@@ -40,6 +41,21 @@ public class TacoOrder {
         this.tacos.add(taco);
     }
 
+    public Map<String,Object> getBillingInfo(){
+        return Map.ofEntries(
+                entry("id", id),
+                entry("deliveryName", deliveryName),
+                entry("deliveryStreet", deliveryStreet),
+                entry("deliveryCity", deliveryCity),
+                entry("deliveryState", deliveryState),
+                entry("deliveryZip", deliveryZip),
+                entry("createdAt", createdAt)
+        );
+    }
+
+    public List<Object> getOrderItems(){
+        return Collections.singletonList(tacos);
+    }
     @Override
     public String toString() {
         return String.valueOf(this.id);
