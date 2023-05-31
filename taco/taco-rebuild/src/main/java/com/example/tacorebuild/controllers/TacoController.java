@@ -4,14 +4,11 @@ package com.example.tacorebuild.controllers;
 import com.example.tacorebuild.repos.TacoRepository;
 import com.example.tacorebuild.structs.Taco;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 
 import java.util.Optional;
 
@@ -24,15 +21,17 @@ public class TacoController {
     private TacoRepository tacoRepository;
 
     @GetMapping(params = "recent")
-    public Iterable<Taco> orderForm() {
-        Pageable pageable = PageRequest.of(0,12, Sort.by(Sort.Direction.DESC, "tacoOrder.createdAt"));
-        Page<Taco> finded= tacoRepository.findAll(pageable);
-        Iterable<Taco>data=finded.getContent();
-
-        return data;}
+    public Flux<Taco> recentTacos() {
+        return Flux.fromIterable(tacoRepository.findAll()).take(12);
+    }
+    @GetMapping(params = "recentReact")
+    public Flux<Taco> recentTacosReact() {
+        return null;
+//        return tacoRepositoryReact.findAll().take(12);
+    }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity orderForm(@PathVariable("id") Long id) {
+    public ResponseEntity getTacoById(@PathVariable("id") Long id) {
         Optional<Taco> optionalTacos= tacoRepository.findById(id);
         if (!optionalTacos.isPresent())return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 
@@ -43,4 +42,9 @@ public class TacoController {
     public Taco postTaco(@RequestBody Taco taco){
         return tacoRepository.save(taco);
     }
+//    @PostMapping(value = "/react",consumes = "application/json")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public Mono<Taco> postTacoReact(@RequestBody Mono<Taco> taco){
+//        return tacoRepository.saveAll(taco).
+//    }
 }

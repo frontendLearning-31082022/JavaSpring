@@ -8,9 +8,9 @@ import org.springframework.integration.annotation.Transformer;
 
 @Configuration
 public class TransformerIntegration {
-    @Bean
-    @Transformer
-    TacoOrder generateOrder(String productId) {
-        return new TacoOrder();
-    }
+//    @Bean
+//    @Transformer
+//    TacoOrder generateOrder(String productId) {
+//        return new TacoOrder();
+//    }
 }

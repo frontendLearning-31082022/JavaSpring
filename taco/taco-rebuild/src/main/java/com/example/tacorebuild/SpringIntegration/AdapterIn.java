@@ -8,7 +8,6 @@ import org.springframework.messaging.support.GenericMessage;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Configuration
 public class AdapterIn {
     @Bean
     @InboundChannelAdapter(channel = "numCh")
