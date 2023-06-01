@@ -1,6 +1,7 @@
 package com.example.helloReactor;
 
 import org.junit.jupiter.api.Test;
+import reactor.core.publisher.BaseSubscriber;
 import reactor.core.publisher.ConnectableFlux;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -339,5 +340,57 @@ public class FluxUsageTest {
         mono.subscribe(f->System.out.println(f));
         Thread.sleep(5000);
     }
+
+    @Test
+    public void generatorStrings() throws InterruptedException {
+        Flux.<String>generate(x->x.next("word"))
+                .subscribe(System.out::println);
+    }
+    @Test
+    public void generatorCounter() throws InterruptedException {
+        Flux.generate(()->0,
+                        (state, sink) -> {
+                            if (state>15){sink.complete();
+                            }else {sink.next("Step "+state); }
+
+                            return state+3;
+                        })
+                .timeout(Duration.ofSeconds(2))
+                .onErrorReturn("Slowww")
+                .retry(5)
+                .subscribe(System.out::println);
+    }
+    @Test
+    public void fluxSubscribeOnFlux() throws InterruptedException {
+        Flux<Object> flowFlux= Flux.generate(()->0,
+                        (state, sink) -> {
+                            if (state>15){sink.complete();
+                            }else {sink.next("Step "+state); }
+
+                            return state+3;
+                        });
+
+        Flux.create(sink->
+                flowFlux.subscribe(new BaseSubscriber<Object>() {
+                    @Override
+                    protected void hookOnNext(Object msg) {
+                        sink.next(msg);
+                    }
+
+                    @Override
+                    protected void hookOnComplete() {
+                        sink.complete();
+                    }
+                })
+                )
+                .subscribe(System.out::println);
+    }
+
+    @Test
+    public void generatorStrings11() throws InterruptedException {
+        Flux.<String>generate(x->x.next("word"))
+                .subscribe(System.out::println);
+    }
+
 
 }
