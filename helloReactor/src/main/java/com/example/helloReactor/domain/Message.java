@@ -1,13 +1,13 @@
 package com.example.helloReactor.domain;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.data.annotation.Id;
 
 @Data
-@AllArgsConstructor
+@NoArgsConstructor
 @Setter(AccessLevel.NONE)
 public class Message {
+    @Id
+    private Long id;
     private String data;
 }
