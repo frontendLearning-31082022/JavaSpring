@@ -26,6 +26,14 @@ public class RSocketCleintConfiguration {
                         .doOnNext(one->log.info("Price of {} - {} (time {})",one.getSymbol(),one.getPrice(),one.getTimestamp()))
                         .subscribe();
             }
+
+            @Override
+            public void sendReqOneWay(String urlPath, Object obj) {
+                RSocketRequester tcp=reqBuild.tcp("localhost",7000);
+                tcp.route(urlPath).data(obj)
+                        .send().subscribe();
+                log.info("Alert sended");
+            }
         };
         return clientSender;
     }
