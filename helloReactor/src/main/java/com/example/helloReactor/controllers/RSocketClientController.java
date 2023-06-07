@@ -21,4 +21,11 @@ public class RSocketClientController {
         clientSend.sendReqAnswer("handleReqVars/AbuDabi","Privet");
         return "ok";
     }
+    @GetMapping("clientRS/fluxListener")
+    @ResponseBody
+    public String fluxListener(
+    ){
+        clientSend.fluxListener("stock/goldenRuble");
+        return "ok";
+    }
 }

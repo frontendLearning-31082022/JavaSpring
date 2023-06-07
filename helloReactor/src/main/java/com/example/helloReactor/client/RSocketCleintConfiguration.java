@@ -18,6 +18,14 @@ public class RSocketCleintConfiguration {
                 tcp.route(urlPath).data(msg)
                         .retrieveMono(String.class).subscribe(x->log.info("Responce from server: {} and msg data {}",x,msg));
             }
+            @Override
+            public void fluxListener(String urlPath) {
+                RSocketRequester tcp=reqBuild.tcp("localhost",7000);
+                tcp.route(urlPath)
+                        .retrieveFlux(StockQuote.class)
+                        .doOnNext(one->log.info("Price of {} - {} (time {})",one.getSymbol(),one.getPrice(),one.getTimestamp()))
+                        .subscribe();
+            }
         };
         return clientSender;
     }
