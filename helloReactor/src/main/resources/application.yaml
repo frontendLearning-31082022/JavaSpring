@@ -1,0 +1,39 @@
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          r2dbc: DEBUG
+spring:
+  r2dbc:
+    url: 'r2dbc:mysql://192.168.1.11:3306/HelloReactor'
+    username: springuser
+    password: ThePassword
+  flyway:
+    url: 'jdbc:mysql://192.168.1.11:3306/HelloReactor'
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    user: springuser
+    password: ThePassword
+  rsocket:
+    server:
+      port: '7000'
+      transport: websocket
+      mapping-path: /rsocket
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  info:
+    env:
+      enabled: true
+    java:
+      enabled: true
+    git:
+      mode: full
+  endpoint:
+    health:
+      show-details: always
+info:
+  descrp: Здарова бандиты
+  java-version: '${java.version}'
