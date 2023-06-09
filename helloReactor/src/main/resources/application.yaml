@@ -19,6 +19,12 @@ spring:
       port: '7000'
       transport: websocket
       mapping-path: /rsocket
+  boot:
+    admin:
+      client:
+        url: http://localhost:9091
+  application:
+    name: helloReactor
 management:
   endpoints:
     web:
