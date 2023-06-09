@@ -28,4 +28,11 @@ public class MainPageController {
     public Mono<Message> add(@RequestBody Message message){
         return messageService.addOne(message);
     }
+
+    @GetMapping("pid")
+    public String pid(
+    ){
+       return System.getProperty("PID");
+    }
+
 }
