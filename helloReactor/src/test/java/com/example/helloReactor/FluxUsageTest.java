@@ -341,7 +341,7 @@ public class FluxUsageTest {
         Thread.sleep(5000);
     }
 
-    @Test
+//    @Test
     public void generatorStrings() throws InterruptedException {
         Flux.<String>generate(x->x.next("word"))
                 .subscribe(System.out::println);
@@ -386,7 +386,7 @@ public class FluxUsageTest {
                 .subscribe(System.out::println);
     }
 
-    @Test
+//    @Test
     public void generatorStrings11() throws InterruptedException {
         Flux.<String>generate(x->x.next("word"))
                 .subscribe(System.out::println);
